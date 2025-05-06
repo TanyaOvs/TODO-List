@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список дел</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="max-w-md mx-auto min-h-screen flex flex-col bg-white shadow-lg relative">
+        <!-- Шапка приложения -->
+        <header class="bg-purple-600 text-white p-4 shadow-md">
+            <div class="flex justify-between items-center">
+                <!-- Иконка -->
+                <div style="height: 60px;width: 60px;"><img id ="#icon_TODO_id" src="icon.png" alt="Логотип"></div>
+                <h1 class="text-2xl font-bold flex items-center">
+                    <!-- Старая Иконка 
+                    <i class="fas fa-tasks mr-2"></i>--> Список дел
+                </h1>
+                <div class="flex space-x-2">
+                    <button id="clearCompletedBtn" class="p-2 text-green-200 hover:text-white" title="Удалить выполненные">
+                        <i class="fas fa-check-double"></i>
+                    </button>
+                    <button id="clearAllBtn" class="p-2 text-pink-400 hover:text-white" title="Очистить все">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p class="text-purple-100">Сегодня</p>
+                <p class="text-xl font-semibold" id="currentDate"></p>
+            </div>
+        </header>
+
+        <!-- Основное содержимое -->
+        <main class="flex-1 overflow-y-auto pb-16">
+            <!-- Фильтры и сортировка -->
+            <!-- Список задач -->
+            <div class="overflow-y-auto custom-scrollbar h-full" id="tasksContainer">
+                <div class="p-4 text-center text-gray-500 hidden" id="emptyState">
+                    <i class="fas fa-tasks text-4xl mb-2 text-gray-300"></i>
+                    <p>Нет задач для отображения</p>
+                </div>
+                <!-- <Блок для задач> -->
+            </div>
+        </main>
+
+        <!-- Кнопка добавления задачи -->
+        <div class="fixed bottom-4 left-0 right-0 flex justify-center px-4">
+            <button id="addTaskBtn" class="w-full max-w-md bg-purple-600 text-white py-3 rounded-lg shadow-lg hover:bg-purple-700 transition flex items-center justify-center">
+                <i class="fas fa-plus border-2 mr-2"></i> Новая задача
+            </button>
+        </div>
+
+        <!-- Модальное окно добавления задачи -->
+        <div id="taskModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto slide-in">
+                <div class="p-4 border-b">
+                    <h3 class="text-lg font-semibold" id="modalTitle">Новая задача</h3>
+                </div>
+                <form id="taskForm" class="p-4">
+                    <div class="mb-4">
+                        <label for="taskTitle" class="block text-sm font-medium text-gray-700 mb-1">Название задачи</label>
+                        <input type="text" id="taskTitle" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-200 focus:border-purple-500" required placeholder="Введите название задачи">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Приоритет</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="priority" value="high" class="h-4 w-4 text-red-600 focus:ring-red-500">
+                                <span class="ml-2 text-gray-700">Высокий</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="priority" value="medium" class="h-4 w-4 text-yellow-600 focus:ring-yellow-500" checked>
+                                <span class="ml-2 text-gray-700">Средний</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="priority" value="low" class="h-4 w-4 text-green-600 focus:ring-green-500">
+                                <span class="ml-2 text-gray-700">Низкий</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="mb-4">
+                        <label for="taskDueDate" class="block text-sm font-medium text-gray-700 mb-1">Дедлайн</label>
+                        <input type="date" id="taskDueDate" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-200 focus:border-purple-500" required>
+                    </div>
+
+                    <!-- Блок напоминания-->
+                    <div class="mb-4">
+                        <label for="taskReminderTime" class="block text-sm font-medium text-gray-700 mb-1">Время напоминания</label>
+                        <input type="time" id="taskReminderTime" class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-200 focus:border-purple-500">
+                    </div>
+
+
+                    <div class="flex justify-between pt-4 border-t">
+                        <button type="button" id="cancelTaskBtn" class="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-100">Отмена</button>
+                        <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Готово</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="code.js"></script>
+</body>
+</html>
